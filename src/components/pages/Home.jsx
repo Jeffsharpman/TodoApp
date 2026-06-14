@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../novatask/Header";
 import Main from "../novatask/Main";
-import { input } from "framer-motion/client";
+// import { input } from "framer-motion/client";
 import EmptyState from "../novatask/EmptyState";
 import Footer from "../novatask/Footer";
 import { PageContext } from "../context/PageContext";
 import TaskFormModal from "../novatask/TaskFormModal";
 import Modal from "../novatask/Modal";
+
+export function useLocalStorage(key, initialValue) {
+  // Initialize state function reads from localStorage on mount
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  // Watch state alterations to flash updates straight to storage disk
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(storedValue));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setStoredValue];
+}
 
 const Home = () => {
   const [input, setInput] = useState("");
@@ -16,57 +40,58 @@ const Home = () => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [sortFilter, setSortFilter] = useState("Newest first");
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "Finish SwiftGo customer UI screens",
-      cat: "Work",
-      prio: "high",
-      done: false,
-      createdAt: new Date(Date.now() - 86400000 * 2), // 2 days ago
-    },
-    {
-      id: 2,
-      text: "Practice React hooks — useEffect & useContext",
-      cat: "Learning",
-      prio: "high",
-      done: false,
-      createdAt: new Date(Date.now() - 86400000 * 1), // 1 day ago
-    },
-    {
-      id: 3,
-      text: "30 min morning run",
-      cat: "Health",
-      prio: "medium",
-      done: true,
-      createdAt: new Date(Date.now() - 86400000 * 0.5), // 12 hours ago
-    },
-    {
-      id: 4,
-      text: "Review Node.js + Express tutorial",
-      cat: "Learning",
-      prio: "medium",
-      done: false,
-      createdAt: new Date(Date.now() - 3600000 * 6), // 6 hours ago
-    },
-    {
-      id: 5,
-      text: "Buy groceries — rice, palm oil, tomatoes",
-      cat: "Shopping",
-      prio: "low",
-      done: false,
-      createdAt: new Date(Date.now() - 3600000 * 2), // 2 hours ago
-    },
-    {
-      id: 6,
-      text: "Update portfolio with new projects",
-      cat: "Personal",
-      prio: "medium",
-      done: false,
-      createdAt: new Date(), // now
-    },
-  ]);
+  // const [todos, setTodos] = useState([
+  //   {
+  //     id: 1,
+  //     text: "Finish SwiftGo customer UI screens",
+  //     cat: "Work",
+  //     prio: "high",
+  //     done: false,
+  //     createdAt: new Date(Date.now() - 86400000 * 2), // 2 days ago
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "Practice React hooks — useEffect & useContext",
+  //     cat: "Learning",
+  //     prio: "high",
+  //     done: false,
+  //     createdAt: new Date(Date.now() - 86400000 * 1), // 1 day ago
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "30 min morning run",
+  //     cat: "Health",
+  //     prio: "medium",
+  //     done: true,
+  //     createdAt: new Date(Date.now() - 86400000 * 0.5), // 12 hours ago
+  //   },
+  //   {
+  //     id: 4,
+  //     text: "Review Node.js + Express tutorial",
+  //     cat: "Learning",
+  //     prio: "medium",
+  //     done: false,
+  //     createdAt: new Date(Date.now() - 3600000 * 6), // 6 hours ago
+  //   },
+  //   {
+  //     id: 5,
+  //     text: "Buy groceries — rice, palm oil, tomatoes",
+  //     cat: "Shopping",
+  //     prio: "low",
+  //     done: false,
+  //     createdAt: new Date(Date.now() - 3600000 * 2), // 2 hours ago
+  //   },
+  //   {
+  //     id: 6,
+  //     text: "Update portfolio with new projects",
+  //     cat: "Personal",
+  //     prio: "medium",
+  //     done: false,
+  //     createdAt: new Date(), // now
+  //   },
+  // ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [todos, setTodos] = useLocalStorage("todos_main", []);
 
   const totalTodos = todos.length;
   const completedTodos = todos.filter((todo) => todo.done).length;

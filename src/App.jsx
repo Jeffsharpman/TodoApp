@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Home from "./components/pages/Home";
 import "./App.css";
-import TodoApp from "./components/novatask/TodoApp";
 
 function App() {
   return (

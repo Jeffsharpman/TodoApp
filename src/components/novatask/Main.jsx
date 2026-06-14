@@ -10,20 +10,22 @@ import { PageContext } from "../context/PageContext";
 const Main = () => {
   const { isModalOpen, setIsModalOpen } = useContext(PageContext);
   return (
-    <main
-      className="min-h-screen bg-[#0E0E0E] text-[#F2F0EB] font-sans
-      max-w-6xl mx-auto px-6 py-16 space-y-8"
-    >
-      <Head />
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Create New Task"
-      >
-        <TaskFormModal />
-      </Modal>
-      <Filter />
-      <TaskItem />
+    <main className="min-h-screen bg-[#0E0E0E] text-[#F2F0EB]">
+      <div className="max-w-6xl mx-auto px-6 py-10 space-y-12">
+        <Head />
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Create New Task"
+        >
+          <TaskFormModal />
+        </Modal>
+
+        <Filter />
+
+        <TaskItem />
+      </div>
     </main>
   );
 };

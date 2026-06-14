@@ -1,7 +1,8 @@
 import React, { useContext, useRef, useState } from "react";
 import { PageContext } from "../context/PageContext";
 import EmptyState from "./EmptyState";
-import { input } from "framer-motion/m";
+import { Edit, Trash2 } from "lucide-react";
+// import { input } from "framer-motion/m";
 
 const formatRelativeTime = (createdAt) => {
   if (!createdAt) return "—";
@@ -137,21 +138,32 @@ const TaskItem = () => {
         {/* <p className="comp-label">04/05 — TASK LIST &amp; TASK CARD</p> */}
         <div className="showcase-card p-8 space-y-3">
           {todos.length === 0 ? (
-            <EmptyState />
+            <EmptyState state="No Task" />
+          ) : getFilteredTodos().length === 0 ? (
+            <EmptyState state="No Result" />
           ) : (
+            //   getFilteredTodos().every((todo) => todo.done) ? (
+            // <EmptyState state="All Caught Up" />
+            //   ) :
             getFilteredTodos().map((todo) => (
-              <div key={todo.id} className="task-row">
+              <div
+                key={todo.id}
+                className="task-row group bg-[#0E0E0E] border border-[#2C2C2C] hover:border-[#444] rounded-2xl px-6 py-5 transition-all duration-200 flex items-start gap-5"
+              >
                 {/* Checkbox */}
                 <div
-                  className={`cb cursor-pointer transition-all flex items-center justify-center text-sm font-bold ${
+                  className={`cb mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
                     todo.done
-                      ? `bg-[${getPriorityColor(todo.prio)}] border-[${getPriorityColor(todo.prio)}] text-black`
-                      : "border-gray-400 hover:border-white"
+                      ? "text-black"
+                      : "border-[#555] group-hover:border-[#777]"
                   }`}
                   onClick={() => toggleTodo(todo.id)}
                   style={
                     todo.done
-                      ? { backgroundColor: getPriorityColor(todo.prio) }
+                      ? {
+                          backgroundColor: getPriorityColor(todo.prio),
+                          borderColor: getPriorityColor(todo.prio),
+                        }
                       : {}
                   }
                 >
@@ -160,12 +172,13 @@ const TaskItem = () => {
 
                 {/* Priority Dot */}
                 <div
-                  className="p-dot"
+                  className="p-dot mt-2.5 w-3 h-3 rounded-full flex-shrink-0"
                   style={{ background: getPriorityColor(todo.prio) }}
                 />
 
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
+                {/* Main Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       {editId === todo.id ? (
                         <input
@@ -177,41 +190,54 @@ const TaskItem = () => {
                             if (e.key === "Escape") cancelEdit();
                           }}
                           onBlur={() => saveEdit(todo.id)}
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            outline: "none",
-                            width: "100%",
-                            fontFamily: "'DM Mono', monospace",
-                            fontSize: "13px",
-                            borderBottom: `1px solid ${getPriorityColor(todo.prio)}`,
-                            paddingBottom: "2px",
-                            color: "inherit",
-                          }}
+                          className="bg-transparent border-b border-[#C8F135] focus:border-[#C8F135] outline-none w-full text-[15px] py-1 font-medium"
+                          style={{ fontFamily: "'DM Mono', monospace" }}
                         />
                       ) : (
                         <p
-                          className={`task-text ${todo.done ? "line-through text-gray-400" : ""}`}
+                          className={`task-text text-[15px] leading-tight pr-4 ${todo.done ? "line-through text-gray-400" : "text-white"}`}
                           onClick={() => toggleTodo(todo.id)}
                         >
                           {todo.text}
                         </p>
                       )}
                     </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                      <button
+                        className="icon-btn hover:text-[#C8F135] p-2 hover:bg-[#1F1F1F] rounded-xl transition-all"
+                        onClick={() => editTodo(todo.id)}
+                      >
+                        <Edit size={18} />
+                      </button>
+                      <button
+                        className="icon-btn text-red-400 hover:text-red-500 p-2 hover:bg-[#1F1F1F] rounded-xl transition-all"
+                        onClick={() => deleteTodo(todo.id)}
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Tags + Date Row - Updated */}
-                  <div className="mt-2 flex items-center justify-between">
-                    <div className="flex gap-3">
+                  {/* Tags + Date */}
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="flex gap-2">
                       <span
-                        className="tag-pill"
-                        style={{ color: getCategoryColor(todo.cat) }}
+                        className="tag-pill text-xs px-3 py-1 rounded-full border"
+                        style={{
+                          color: getCategoryColor(todo.cat),
+                          borderColor: `${getCategoryColor(todo.cat)}30`,
+                        }}
                       >
                         {todo.cat}
                       </span>
                       <span
-                        className="tag-pill"
-                        style={{ color: getPriorityColor(todo.prio) }}
+                        className="tag-pill text-xs px-3 py-1 rounded-full border"
+                        style={{
+                          color: getPriorityColor(todo.prio),
+                          borderColor: `${getPriorityColor(todo.prio)}30`,
+                        }}
                       >
                         {todo.prio.toUpperCase()}
                       </span>
@@ -221,21 +247,6 @@ const TaskItem = () => {
                       {formatRelativeTime(todo.createdAt)}
                     </span>
                   </div>
-                </div>
-
-                <div className="flex gap-1">
-                  <button
-                    className="icon-btn"
-                    onClick={() => editTodo(todo.id)}
-                  >
-                    ✎
-                  </button>
-                  <button
-                    className="icon-btn danger"
-                    onClick={() => deleteTodo(todo.id)}
-                  >
-                    🗑
-                  </button>
                 </div>
               </div>
             ))

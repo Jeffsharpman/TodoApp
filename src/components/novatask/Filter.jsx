@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { PageContext } from "../context/PageContext";
 
 const filterOptions = ["All", "Active", "Done"];
+{
+  /* <button className="clear-btn">Clear Done</button> */
+}
 
 const Filter = () => {
   const { filter, setFilter, category, priority, setCategoryFilter, setPriorityFilter, setSortFilter } = useContext(PageContext);
@@ -10,24 +13,33 @@ const Filter = () => {
     <div>
       {/* 03 — Filters */}
       <section id="filters">
-        {/* <p className="comp-label">03 — FILTER BAR</p> */}
-        <div className="showcase-card">
+        <div className="showcase-card border border-[#2C2C2C] bg-[#0E0E0E] rounded-2xl overflow-hidden">
           <div className="p-8">
-            <div className="flex flex-wrap gap-4 justify-between items-center">
-              <div className="flex gap-2 bg-[#181818] p-1 rounded-xl">
+            <div className="flex flex-wrap gap-6 justify-between items-center">
+              {/* Status Tabs */}
+              <div className="flex bg-[#181818] p-1.5 rounded-2xl border border-[#2C2C2C]">
                 {filterOptions.map((option) => (
                   <button
                     key={option}
-                    className={`f-tab ${option === filter ? "active" : ""}`}
                     onClick={() => setFilter(option)}
+                    className={`f-tab px-6 py-2.5 text-sm font-mono tracking-widest rounded-xl transition-all ${
+                      option === filter
+                        ? "bg-[#C8F135] text-black font-medium"
+                        : "text-[#888] hover:text-white"
+                    }`}
                   >
                     {option}
                   </button>
                 ))}
               </div>
 
-              <div className="flex gap-3">
-                <select className="sel" onChange={(e) => setCategoryFilter(e.target.value)}>
+              {/* Filters */}
+              <div className="flex flex-wrap gap-3">
+                {/* Category Filter */}
+                <select
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  className="sel bg-[#181818] border border-[#2C2C2C] text-[#CCC] font-mono text-sm px-5 py-3 rounded-2xl focus:outline-none focus:border-[#C8F135] cursor-pointer transition-colors"
+                >
                   <option value="All">All Categories</option>
                   {category.map((c) => (
                     <option key={c} value={c}>
@@ -35,7 +47,12 @@ const Filter = () => {
                     </option>
                   ))}
                 </select>
-                <select className="sel" onChange={(e) => setPriorityFilter(e.target.value)}>
+
+                {/* Priority Filter */}
+                <select
+                  onChange={(e) => setPriorityFilter(e.target.value)}
+                  className="sel bg-[#181818] border border-[#2C2C2C] text-[#CCC] font-mono text-sm px-5 py-3 rounded-2xl focus:outline-none focus:border-[#C8F135] cursor-pointer transition-colors"
+                >
                   <option value="All">All Priorities</option>
                   {priority.map((p) => (
                     <option key={p} value={p}>
@@ -43,11 +60,16 @@ const Filter = () => {
                     </option>
                   ))}
                 </select>
-                <select className="sel" onChange={(e) => setSortFilter(e.target.value)}>
+
+                {/* Sort Filter */}
+                <select
+                  onChange={(e) => setSortFilter(e.target.value)}
+                  className="sel bg-[#181818] border border-[#2C2C2C] text-[#CCC] font-mono text-sm px-5 py-3 rounded-2xl focus:outline-none focus:border-[#C8F135] cursor-pointer transition-colors"
+                >
                   <option value="Newest first">Newest first</option>
+                  <option value="Oldest first">Oldest first</option>
                   <option value="By priority">By priority</option>
                 </select>
-                {/* <button className="clear-btn">Clear Done</button> */}
               </div>
             </div>
           </div>

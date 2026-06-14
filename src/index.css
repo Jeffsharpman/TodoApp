@@ -106,6 +106,17 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
+::selection {
+  background-color: #C8F135;
+  color: #0E0E0E;
+  font-weight: 500;
+}
+
+::-moz-selection {
+  background-color: #C8F135;
+  color: #0E0E0E;
+}
+
 /* Showcase Card */
 .showcase-card {
   background: #181818;
