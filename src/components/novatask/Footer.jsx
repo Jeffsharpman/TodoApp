@@ -74,7 +74,7 @@ const Footer = () => {
         {/* Bottom row */}
         <div className="flex items-center justify-between flex-wrap gap-2 mt-5 pt-4 border-t border-[#2C2C2C]">
           <span className="font-mono text-[9px] text-[#333] tracking-wide">
-            SHARPMAN · DESIGN. CODE. ELEVATE.
+            SHARP<span className="text-[#C8F135]">MAN</span> · DESIGN. CODE. <span className="text-[#C8F135]">ELEVATE</span>.
           </span>
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 bg-[#C8F135] rounded-full" />
