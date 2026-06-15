@@ -40,6 +40,8 @@ const Home = () => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [sortFilter, setSortFilter] = useState("Newest first");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [todoToDelete, setTodoToDelete] = useState(null);
   // const [todos, setTodos] = useState([
   //   {
   //     id: 1,
@@ -170,6 +172,10 @@ const Home = () => {
         percentCompleted,
         isModalOpen,
         setIsModalOpen,
+        showDeleteModal,
+        setShowDeleteModal,
+        todoToDelete,
+        setTodoToDelete,
       }}
     >
       <div>

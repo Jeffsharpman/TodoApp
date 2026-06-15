@@ -2,7 +2,8 @@ import React, { useContext, useRef, useState } from "react";
 import { PageContext } from "../context/PageContext";
 import EmptyState from "./EmptyState";
 import { Edit, Trash2 } from "lucide-react";
-// import { input } from "framer-motion/m";
+import Confirmation from "./Confirmation";
+import Modal from "./Modal";
 
 const formatRelativeTime = (createdAt) => {
   if (!createdAt) return "—";
@@ -35,15 +36,17 @@ const TaskItem = () => {
     categoryFilter,
     priorityFilter,
     sortFilter,
+    showDeleteModal,
+    setShowDeleteModal,
+    todoToDelete,
+    setTodoToDelete,
   } = useContext(PageContext);
+
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
-  const inputRef = useRef(null);
-  const focusInput = () => {
-    inputRef.current.focus();
-  };
+
   const getFilteredTodos = () => {
-    let filtered = [...todos]; // important: work on a copy
+    let filtered = [...todos];
 
     // Category filter
     if (categoryFilter !== "All") {
@@ -53,7 +56,7 @@ const TaskItem = () => {
     // Priority filter
     if (priorityFilter !== "All") {
       filtered = filtered.filter(
-        (todo) => todo.prio.toLowerCase() === priorityFilter.toLowerCase(),
+        (todo) => todo.prio?.toLowerCase() === priorityFilter.toLowerCase(),
       );
     }
 
@@ -65,16 +68,17 @@ const TaskItem = () => {
       case "Done":
         filtered = filtered.filter((todo) => todo.done);
         break;
-      // default: show all (no action needed)
+      default:
+        break;
     }
 
     // Sorting
     if (sortFilter !== "All") {
       filtered = filtered.sort((a, b) => {
         if (sortFilter === "Newest first") {
-          return b.createdAt - a.createdAt;
+          return new Date(b.createdAt) - new Date(a.createdAt);
         } else if (sortFilter === "Oldest first") {
-          return a.createdAt - b.createdAt;
+          return new Date(a.createdAt) - new Date(b.createdAt);
         } else if (sortFilter === "By priority") {
           const priorityOrder = { high: 3, medium: 2, low: 1 };
           return (
@@ -90,20 +94,25 @@ const TaskItem = () => {
   };
 
   const toggleTodo = (id) => {
-    // Implement the logic to toggle the 'done' status of the todo item
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, done: !todo.done };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo,
+      ),
+    );
   };
 
-  const deleteTodo = (id) => {
-    if (window.confirm("Are you sure you want to delete this todo?")) {
-      setTodos(todos.filter((todo) => todo.id !== id));
+  const handleDeleteClick = (todo) => {
+    setTodoToDelete(todo);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (todoToDelete) {
+      // FIX: Actually remove the item from the array state
+      setTodos(todos.filter((todo) => todo.id !== todoToDelete.id));
     }
+    setShowDeleteModal(false);
+    setTodoToDelete(null);
   };
 
   const editTodo = (id) => {
@@ -131,21 +140,18 @@ const TaskItem = () => {
     setEditText("");
   };
 
+  const filteredTodos = getFilteredTodos();
+
   return (
     <div>
-      {/* 04 — TaskList + 05 — TaskCard */}
       <section id="tasklist">
-        {/* <p className="comp-label">04/05 — TASK LIST &amp; TASK CARD</p> */}
         <div className="showcase-card p-8 space-y-3">
           {todos.length === 0 ? (
             <EmptyState state="No Task" />
-          ) : getFilteredTodos().length === 0 ? (
+          ) : filteredTodos.length === 0 ? (
             <EmptyState state="No Result" />
           ) : (
-            //   getFilteredTodos().every((todo) => todo.done) ? (
-            // <EmptyState state="All Caught Up" />
-            //   ) :
-            getFilteredTodos().map((todo) => (
+            filteredTodos.map((todo) => (
               <div
                 key={todo.id}
                 className="task-row group bg-[#0E0E0E] border border-[#2C2C2C] hover:border-[#444] rounded-2xl px-6 py-5 transition-all duration-200 flex items-start gap-5"
@@ -195,7 +201,11 @@ const TaskItem = () => {
                         />
                       ) : (
                         <p
-                          className={`task-text text-[15px] leading-tight pr-4 ${todo.done ? "line-through text-gray-400" : "text-white"}`}
+                          className={`task-text text-[15px] leading-tight pr-4 cursor-pointer ${
+                            todo.done
+                              ? "line-through text-gray-400"
+                              : "text-white"
+                          }`}
                           onClick={() => toggleTodo(todo.id)}
                         >
                           {todo.text}
@@ -213,7 +223,7 @@ const TaskItem = () => {
                       </button>
                       <button
                         className="icon-btn text-red-400 hover:text-red-500 p-2 hover:bg-[#1F1F1F] rounded-xl transition-all"
-                        onClick={() => deleteTodo(todo.id)}
+                        onClick={() => handleDeleteClick(todo)}
                       >
                         <Trash2 size={18} />
                       </button>
@@ -239,7 +249,7 @@ const TaskItem = () => {
                           borderColor: `${getPriorityColor(todo.prio)}30`,
                         }}
                       >
-                        {todo.prio.toUpperCase()}
+                        {todo.prio?.toUpperCase()}
                       </span>
                     </div>
 
@@ -253,6 +263,28 @@ const TaskItem = () => {
           )}
         </div>
       </section>
+
+      {/* FIX: Modal is pulled outside the map loop to prevent duplicates */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setTodoToDelete(null);
+        }}
+        title="Delete Todo"
+      >
+        <Confirmation
+          /* FIX: Changed .title to .text to match your object structure */
+          message={`Are you sure you want to delete "${todoToDelete?.text || "this task"}"? This action cannot be undone.`}
+          confirmText="Yes, Delete"
+          confirmVariant="danger"
+          onConfirm={handleConfirmDelete}
+          onCancel={() => {
+            setShowDeleteModal(false);
+            setTodoToDelete(null);
+          }}
+        />
+      </Modal>
     </div>
   );
 };
