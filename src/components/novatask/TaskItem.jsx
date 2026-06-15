@@ -45,6 +45,54 @@ const TaskItem = () => {
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
 
+  // const getFilteredTodos = () => {
+  //   let filtered = [...todos];
+
+  //   // Category filter
+  //   if (categoryFilter !== "All") {
+  //     filtered = filtered.filter((todo) => todo.cat === categoryFilter);
+  //   }
+
+  //   // Priority filter
+  //   if (priorityFilter !== "All") {
+  //     filtered = filtered.filter(
+  //       (todo) => todo.prio?.toLowerCase() === priorityFilter.toLowerCase(),
+  //     );
+  //   }
+
+  //   // Status filter (Active / Done / All)
+  //   switch (filter) {
+  //     case "Active":
+  //       filtered = filtered.filter((todo) => !todo.done);
+  //       break;
+  //     case "Done":
+  //       filtered = filtered.filter((todo) => todo.done);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+
+  //   // Sorting
+  //   if (sortFilter !== "All") {
+  //     filtered = filtered.sort((a, b) => {
+  //       if (sortFilter === "Newest first") {
+  //         return new Date(b.createdAt) - new Date(a.createdAt);
+  //       } else if (sortFilter === "Oldest first") {
+  //         return new Date(a.createdAt) - new Date(b.createdAt);
+  //       } else if (sortFilter === "By priority") {
+  //         const priorityOrder = { high: 3, medium: 2, low: 1 };
+  //         return (
+  //           (priorityOrder[b.prio?.toLowerCase()] || 0) -
+  //           (priorityOrder[a.prio?.toLowerCase()] || 0)
+  //         );
+  //       }
+  //       return 0;
+  //     });
+  //   }
+
+  //   return filtered;
+  // };
+
   const getFilteredTodos = () => {
     let filtered = [...todos];
 
@@ -72,23 +120,30 @@ const TaskItem = () => {
         break;
     }
 
-    // Sorting
-    if (sortFilter !== "All") {
-      filtered = filtered.sort((a, b) => {
-        if (sortFilter === "Newest first") {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        } else if (sortFilter === "Oldest first") {
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        } else if (sortFilter === "By priority") {
-          const priorityOrder = { high: 3, medium: 2, low: 1 };
-          return (
-            (priorityOrder[b.prio?.toLowerCase()] || 0) -
-            (priorityOrder[a.prio?.toLowerCase()] || 0)
-          );
-        }
-        return 0;
-      });
-    }
+    // Two-tier Sorting Engine
+    filtered = filtered.sort((a, b) => {
+      // Rule 1: Always push completed tasks to the bottom
+      if (a.done !== b.done) {
+        return a.done ? 1 : -1;
+      }
+
+      // Rule 2: Sort tasks within their respective "Done" or "Active" blocks
+      if (sortFilter === "Newest first") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      } else if (sortFilter === "By priority") {
+        const priorityOrder = { high: 3, medium: 2, low: 1 };
+        const priorityDiff =
+          (priorityOrder[b.prio?.toLowerCase()] || 0) -
+          (priorityOrder[a.prio?.toLowerCase()] || 0);
+
+        // If priorities are equal, maintain chronological ascending order
+        if (priorityDiff !== 0) return priorityDiff;
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      } else {
+        // "Oldest first" / "All": Ascending chronological order (Oldest first)
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      }
+    });
 
     return filtered;
   };
