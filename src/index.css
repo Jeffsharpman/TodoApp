@@ -1,34 +1,164 @@
 @import "tailwindcss";
 
+/* ── Tailwind theme tokens (mapped to CSS vars) ── */
 @theme {
-  --color-canvas: #f7f5f0;
-  --color-card: #ffffff;
-  --color-ink: #1c1a17;
-  --color-inksoft: #6b6860;
-  --color-muted: #9a9790;
-  --color-line: #e4e1d9;
-  --color-accent: #2a5ce6;
-  --color-accentlt: #f0f4ff;
-  --color-lime: #6db33f;
-  --color-limelt: #f0f9e8;
-  --color-rose: #e11d48;
-  --color-roselt: #fff1f2;
-  --color-amber: #d97706;
-  --color-amberlt: #fefce8;
-  --color-violet: #7c3aed;
-  --color-violetlt: #f5f3ff;
+  --color-canvas:    var(--canvas);
+  --color-card:      var(--card);
+  --color-ink:       var(--ink);
+  --color-inksoft:   var(--inksoft);
+  --color-muted:     var(--muted);
+  --color-line:      var(--line);
+  --color-primary:   var(--primary);
+  --color-primarylt: var(--primarylt);
+  --color-secondary: var(--secondary);
+  --color-accent:    var(--accent);
+  --color-accentlt:  var(--accentlt);
+  --color-lime:      var(--lime);
+  --color-limelt:    var(--limelt);
+  --color-rose:      var(--rose);
+  --color-roselt:    var(--roselt);
+  --color-amber:     var(--amber);
+  --color-amberlt:   var(--amberlt);
+  --color-violet:    var(--violet);
+  --color-violetlt:  var(--violetlt);
 }
 
-* {
-  box-sizing: border-box;
+/* ══════════════════════════════════════════
+   LIGHT THEME  (default / html.light)
+══════════════════════════════════════════ */
+:root,
+html.light {
+  --canvas:     #f7f5f0;
+  --card:       #ffffff;
+  --card2:      #f0ede7;        /* showcase-card bg   */
+  --ink:        #1c1a17;
+  --inksoft:    #6b6860;
+  --muted:      #9a9790;
+  --line:       #e4e1d9;
+  --primary:    #2a5ce6;        /* CTA / accent       */
+  --primarylt:  #f0f4ff;
+  --secondary:  #f0ede7;
+  --accent:     #2a5ce6;
+  --accentlt:   #f0f4ff;
+
+  /* Semantic surface */
+  --surface:    #ffffff;
+  --surface2:   #f0ede7;
+  --input-bg:   #f7f5f0;
+  --input-bdr:  #d4d0c8;
+  --hover-row:  #f0ede7;
+  --hover-bdr:  #c8c4bc;
+
+  /* Tag active / checkbox / pill accent */
+  --hi:         #2a5ce6;        /* highlight          */
+  --hi-bg:      rgba(42,92,230,0.1);
+  --hi-glow:    rgba(42,92,230,0.15);
+  --cb-done-bg: #6db33f;
+  --cb-done-bdr:#6db33f;
+  --strike:     #9a9790;
+
+  /* Status */
+  --lime:       #6db33f;
+  --limelt:     #f0f9e8;
+  --rose:       #e11d48;
+  --roselt:     #fff1f2;
+  --amber:      #d97706;
+  --amberlt:    #fefce8;
+  --violet:     #7c3aed;
+  --violetlt:   #f5f3ff;
+
+  /* Danger */
+  --danger:     #e11d48;
+  --danger-bg:  rgba(225,29,72,0.1);
+  --danger-bdr: #e11d48;
+
+  /* Scrollbar */
+  --sb-thumb:   #d4d0c8;
+
+  /* Selection */
+  --sel-bg:     #2a5ce6;
+  --sel-fg:     #ffffff;
+
+  color-scheme: light;
 }
+
+/* ══════════════════════════════════════════
+   DARK THEME  (html.dark)
+══════════════════════════════════════════ */
+html.dark {
+  --canvas:     #0e0e0e;
+  --card:       #181818;
+  --card2:      #181818;
+  --ink:        #f2f0eb;
+  --inksoft:    #b0ada6;
+  --muted:      #888880;
+  --line:       #2c2c2c;
+  --primary:    #c8f135;
+  --primarylt:  rgba(200,241,53,0.12);
+  --secondary:  #212121;
+  --accent:     #c8f135;
+  --accentlt:   rgba(200,241,53,0.12);
+
+  --surface:    #181818;
+  --surface2:   #212121;
+  --input-bg:   #212121;
+  --input-bdr:  #2c2c2c;
+  --hover-row:  #212121;
+  --hover-bdr:  #444444;
+
+  --hi:         #c8f135;
+  --hi-bg:      rgba(200,241,53,0.13);
+  --hi-glow:    rgba(200,241,53,0.12);
+  --cb-done-bg: #c8f135;
+  --cb-done-bdr:#c8f135;
+  --strike:     #888880;
+
+  --lime:       #c8f135;
+  --limelt:     rgba(200,241,53,0.12);
+  --rose:       #ff4545;
+  --roselt:     rgba(255,69,69,0.12);
+  --amber:      #f59e0b;
+  --amberlt:    rgba(245,158,11,0.12);
+  --violet:     #a78bfa;
+  --violetlt:   rgba(167,139,250,0.12);
+
+  --danger:     #ff4545;
+  --danger-bg:  rgba(255,69,69,0.12);
+  --danger-bdr: #851313;
+
+  --sb-thumb:   #2c2c2c;
+
+  --sel-bg:     #c8f135;
+  --sel-fg:     #0e0e0e;
+
+  color-scheme: dark;
+}
+
+/* ══════════════════════════════════════════
+   BASE
+══════════════════════════════════════════ */
+* { box-sizing: border-box; }
 
 body {
-  background-color: #f7f5f0;
-  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: "DM Sans", "Inter", system-ui, sans-serif;
+  transition: background-color 0.25s ease, color 0.2s ease;
 }
 
-/* Font families */
+::selection {
+  background-color: var(--sel-bg);
+  color: var(--sel-fg);
+  font-weight: 500;
+}
+::-moz-selection {
+  background-color: var(--sel-bg);
+  color: var(--sel-fg);
+}
+
+/* ══════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+══════════════════════════════════════════ */
 .font-display {
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 700;
@@ -37,17 +167,172 @@ body {
   font-family: "Inter", system-ui, sans-serif;
 }
 
-/* Component label */
+/* ══════════════════════════════════════════
+   COMPONENT LABEL
+══════════════════════════════════════════ */
 .comp-label {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "DM Mono", "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #9a9790;
-  border-bottom: 1px solid #e4e1d9;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
   padding-bottom: 8px;
   margin-bottom: 20px;
+}
+
+/* ══════════════════════════════════════════
+   SHOWCASE CARD
+══════════════════════════════════════════ */
+.showcase-card {
+  background: var(--card2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+/* ══════════════════════════════════════════
+   INPUTS
+══════════════════════════════════════════ */
+.task-input,
+.inp {
+  background: var(--input-bg);
+  border: 1px solid var(--input-bdr);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: var(--ink);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
+}
+
+.task-input:focus,
+.inp:focus {
+  border-color: var(--hi);
+  box-shadow: 0 0 0 3px var(--hi-glow);
+}
+
+/* ══════════════════════════════════════════
+   ADD BUTTON
+══════════════════════════════════════════ */
+.add-btn {
+  background: var(--primary);
+  color: var(--sel-fg);   /* black in dark, white in light */
+  font-weight: 700;
+  padding: 0 32px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: filter 0.15s;
+}
+.add-btn:hover { filter: brightness(1.08); }
+
+/* ══════════════════════════════════════════
+   TAG PILL
+══════════════════════════════════════════ */
+.tag-pill {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.tag-pill.active {
+  background: var(--hi-bg);
+  border-color: var(--hi);
+  color: var(--hi);
+}
+
+/* ══════════════════════════════════════════
+   FILTER TABS
+══════════════════════════════════════════ */
+.f-tab {
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.f-tab.active {
+  background: var(--primary);
+  color: var(--sel-fg);
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════
+   SELECT
+══════════════════════════════════════════ */
+.sel {
+  background: var(--input-bg);
+  border: 1px solid var(--input-bdr);
+  color: var(--muted);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: "DM Mono", monospace;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+/* ══════════════════════════════════════════
+   TASK ROW
+══════════════════════════════════════════ */
+.task-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.task-row:hover {
+  background: var(--hover-row);
+  border-color: var(--hover-bdr);
+}
+
+/* ══════════════════════════════════════════
+   CHECKBOX
+══════════════════════════════════════════ */
+.cb,
+.cb-base {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  transition: background 0.15s, border-color 0.15s;
+}
+.cb.checked,
+.cb-done {
+  background: var(--cb-done-bg);
+  border-color: var(--cb-done-bdr);
+  color: var(--sel-fg);
+}
+
+/* ══════════════════════════════════════════
+   TASK TEXT
+══════════════════════════════════════════ */
+.task-text {
+  font-family: "DM Mono", monospace;
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+  color: var(--ink);
+}
+.strike {
+  text-decoration: line-through;
+  color: var(--strike);
 }
 
 /* Task rail */
@@ -58,189 +343,7 @@ body {
   align-self: stretch;
 }
 
-/* Custom Checkbox */
-.cb-base {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  border: 1.5px solid #c8c5bc;
-  background: white;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cb-done {
-  border-color: #6db33f;
-  background: #6db33f;
-}
-
-/* Input focus */
-.inp:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(42, 92, 230, 0.12);
-  border-color: #2a5ce6;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #e4e1d9;
-  border-radius: 3px;
-}
-
-
-/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500;600&display=swap'); */
-
-* { box-sizing: border-box; }
-
-body {
-  background: #0E0E0E;
-  color: #F2F0EB;
-  font-family: 'DM Sans', sans-serif;
-}
-
-::selection {
-  background-color: #C8F135;
-  color: #0E0E0E;
-  font-weight: 500;
-}
-
-::-moz-selection {
-  background-color: #C8F135;
-  color: #0E0E0E;
-}
-
-/* Showcase Card */
-.showcase-card {
-  background: #181818;
-  border: 1px solid #2C2C2C;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-/* Component Label */
-.comp-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888880;
-  margin-bottom: 16px;
-}
-
-/* Task Input */
-.task-input {
-  background: #212121;
-  border: 1px solid #2C2C2C;
-  border-radius: 12px;
-  padding: 16px 20px;
-  color: #F2F0EB;
-  font-size: 15px;
-  outline: none;
-  transition: all 0.2s;
-}
-
-.task-input:focus {
-  border-color: #C8F135;
-  box-shadow: 0 0 0 3px #C8F13520;
-}
-
-/* Add Button */
-.add-btn {
-  background: #C8F135;
-  color: #000;
-  font-weight: 700;
-  padding: 0 32px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-/* Tag Pill */
-.tag-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  padding: 4px 14px;
-  border-radius: 9999px;
-  border: 1px solid #444;
-  color: #888880;
-}
-
-.tag-pill.active {
-  background: #C8F13522;
-  border-color: #C8F135;
-  color: #C8F135;
-}
-
-/* Filter Tab */
-.f-tab {
-  padding: 8px 20px;
-  border-radius: 10px;
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  transition: all 0.2s;
-}
-
-.f-tab.active {
-  background: #C8F135;
-  color: #000;
-  font-weight: 600;
-}
-
-/* Select */
-.sel {
-  background: #212121;
-  border: 1px solid #2C2C2C;
-  color: #888880;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-family: 'DM Mono', monospace;
-}
-
-/* Task Row */
-.task-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 18px;
-  background: #181818;
-  border: 1px solid #2C2C2C;
-  border-radius: 14px;
-  transition: all 0.2s;
-}
-
-.task-row:hover {
-  background: #212121;
-  border-color: #444;
-}
-
-.cb {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #555;
-  border-radius: 6px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2px;
-}
-
-.cb.checked {
-  background: #C8F135;
-  border-color: #C8F135;
-  color: #000;
-}
-
+/* Priority dot */
 .p-dot {
   width: 9px;
   height: 9px;
@@ -248,58 +351,71 @@ body {
   margin-top: 8px;
 }
 
-.task-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 15px;
-  line-height: 1.4;
-  cursor: pointer;
-}
-
-.strike {
-  text-decoration: line-through;
-  color: #888880;
-}
-
+/* ══════════════════════════════════════════
+   ICON BUTTONS
+══════════════════════════════════════════ */
 .icon-btn {
   width: 32px;
   height: 32px;
   border-radius: 8px;
   background: transparent;
-  color: #888880;
+  color: var(--muted);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
-
 .icon-btn:hover {
-  background: #2C2C2C;
-  color: #F2F0EB;
+  background: var(--line);
+  color: var(--ink);
 }
-
 .danger:hover {
-  background: #FF454520 !important;
-  color: #FF4545 !important;
+  background: var(--danger-bg) !important;
+  color: var(--danger) !important;
 }
 
-/* Empty Card */
+/* ══════════════════════════════════════════
+   EMPTY STATE
+══════════════════════════════════════════ */
 .empty-card {
   text-align: center;
   padding: 48px 24px;
-  border: 1px solid #2C2C2C;
+  border: 1px solid var(--line);
   border-radius: 16px;
-  background: #181818;
+  background: var(--surface);
 }
 
+/* ══════════════════════════════════════════
+   CLEAR BUTTON
+══════════════════════════════════════════ */
 .clear-btn {
   font-family: "DM Mono", monospace;
   font-size: 11px;
   padding: 6px 12px;
   border-radius: 8px;
-  border: 1px solid #851313;
+  border: 1px solid var(--danger-bdr);
   background: transparent;
-  color: #FF4545 ;
+  color: var(--danger);
   cursor: pointer;
-  transition: all 0.16s;
+  transition: background 0.16s, color 0.16s;
   white-space: nowrap;
+}
+.clear-btn:hover {
+  background: var(--danger-bg);
+}
+
+/* ══════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--sb-thumb); border-radius: 3px; }
+
+/* ══════════════════════════════════════════
+   UTILITY
+══════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  .merch-visible { display: block !important; }
 }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://novatodos.netlify.app/sitemap.xml

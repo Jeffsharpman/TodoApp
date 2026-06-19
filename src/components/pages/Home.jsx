@@ -4,7 +4,7 @@ import Main from "../novatask/Main";
 // import { input } from "framer-motion/client";
 import EmptyState from "../novatask/EmptyState";
 import Footer from "../novatask/Footer";
-import { PageContext } from "../context/PageContext";
+import { PageContext } from "../lib/PageContext";
 import TaskFormModal from "../novatask/TaskFormModal";
 import Modal from "../novatask/Modal";
 

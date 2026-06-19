@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { PageContext } from "../context/PageContext";
+import { PageContext } from "../lib/PageContext";
 import EmptyState from "./EmptyState";
 import { Edit, Trash2 } from "lucide-react";
 import Confirmation from "./Confirmation";
@@ -209,27 +209,27 @@ const TaskItem = () => {
             filteredTodos.map((todo) => (
               <div
                 key={todo.id}
-                className="task-row group bg-[#0E0E0E] border border-[#2C2C2C] hover:border-[#444] rounded-2xl px-6 py-5 transition-all duration-200 flex items-start gap-5"
+                className="task-row group"
               >
                 {/* Checkbox */}
-                <div
-                  className={`cb mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
-                    todo.done
-                      ? "text-black"
-                      : "border-[#555] group-hover:border-[#777]"
-                  }`}
-                  onClick={() => toggleTodo(todo.id)}
-                  style={
-                    todo.done
-                      ? {
-                          backgroundColor: getPriorityColor(todo.prio),
-                          borderColor: getPriorityColor(todo.prio),
-                        }
-                      : {}
-                  }
-                >
-                  {todo.done && "✓"}
-                </div>
+                  <div
+                    className={`cb mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
+                      todo.done
+                        ? "text-black"
+                        : "border-[var(--line)] group-hover:border-[var(--inksoft)]"
+                    }`}
+                    onClick={() => toggleTodo(todo.id)}
+                    style={
+                      todo.done
+                        ? {
+                            backgroundColor: getPriorityColor(todo.prio),
+                            borderColor: getPriorityColor(todo.prio),
+                          }
+                        : {}
+                    }
+                  >
+                    {todo.done && "✓"}
+                  </div>
 
                 {/* Priority Dot */}
                 <div
@@ -251,15 +251,15 @@ const TaskItem = () => {
                             if (e.key === "Escape") cancelEdit();
                           }}
                           onBlur={() => saveEdit(todo.id)}
-                          className="bg-transparent border-b border-[#C8F135] focus:border-[#C8F135] outline-none w-full text-[15px] py-1 font-medium"
+                          className="bg-transparent border-b border-primary outline-none w-full text-[15px] py-1 font-medium text-ink"
                           style={{ fontFamily: "'DM Mono', monospace" }}
                         />
                       ) : (
                         <p
                           className={`task-text text-[15px] leading-tight pr-4 cursor-pointer ${
                             todo.done
-                              ? "line-through text-gray-400"
-                              : "text-white"
+                              ? "line-through text-muted"
+                              : "text-ink"
                           }`}
                           onClick={() => toggleTodo(todo.id)}
                         >
@@ -271,13 +271,13 @@ const TaskItem = () => {
                     {/* Actions */}
                     <div className="flex gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
                       <button
-                        className="icon-btn hover:text-[#C8F135] p-2 hover:bg-[#1F1F1F] rounded-xl transition-all"
+                        className="icon-btn hover:text-primary p-2 hover:bg-[var(--hover-row)] rounded-xl transition-all"
                         onClick={() => editTodo(todo.id)}
                       >
                         <Edit size={18} />
                       </button>
                       <button
-                        className="icon-btn text-red-400 hover:text-red-500 p-2 hover:bg-[#1F1F1F] rounded-xl transition-all"
+                        className="icon-btn text-rose p-2 hover:bg-[var(--hover-row)] rounded-xl transition-all"
                         onClick={() => handleDeleteClick(todo)}
                       >
                         <Trash2 size={18} />
@@ -308,7 +308,7 @@ const TaskItem = () => {
                       </span>
                     </div>
 
-                    <span className="text-xs text-gray-400 font-mono whitespace-nowrap">
+                    <span className="text-xs text-muted font-mono whitespace-nowrap">
                       {formatRelativeTime(todo.createdAt)}
                     </span>
                   </div>

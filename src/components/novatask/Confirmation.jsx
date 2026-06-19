@@ -10,12 +10,12 @@ const Confirmation = ({
 }) => {
   return (
     <div className="space-y-6">
-      <p className="text-gray-300 text-[15px] leading-relaxed">{message}</p>
+      <p className="text-muted text-[15px] leading-relaxed">{message}</p>
 
       <div className="flex gap-3 pt-2">
         <button
           onClick={onCancel}
-          className="flex-1 py-3 px-6 rounded-xl border border-[#2C2C2C] text-gray-300 hover:bg-white/5 transition-colors font-medium"
+          className="flex-1 py-3 px-6 rounded-xl border border-line text-muted hover:bg-white/5 transition-colors font-medium"
         >
           {cancelText}
         </button>
@@ -24,7 +24,7 @@ const Confirmation = ({
           onClick={onConfirm}
           className={`flex-1 py-3 px-6 rounded-xl font-medium transition-all active:scale-[0.985] ${
             confirmVariant === "danger"
-              ? "bg-red-600 hover:bg-red-700 text-white"
+              ? "bg-rose hover:brightness-110 text-white"
               : "bg-white text-black hover:bg-gray-200"
           }`}
         >

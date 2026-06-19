@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import { PageContext } from "../context/PageContext";
+import { PageContext } from "../lib/PageContext";
 import { Plus } from "lucide-react";
 
 const TaskFormModal = () => {
@@ -57,14 +57,14 @@ const TaskFormModal = () => {
                 onChange={(e) => setInput(e.target.value)}
                 type="text"
                 placeholder="What needs to get done?"
-                className="task-input flex-1 bg-[#161616] border border-[#2C2C2C] focus:border-[#C8F135] text-white rounded-xl px-4 py-3 text-sm placeholder:text-[#555] font-medium outline-none transition-colors"
+                className="task-input flex-1"
               />
               <button
                 onClick={() => {
                   focusInput();
                   handleTask();
                 }}
-                className="add-btn bg-[#C8F135] hover:bg-[#d4f54a] text-black font-semibold px-4 md:px-5 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5 text-xs tracking-wider"
+                className="add-btn"
               >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
                 <span className="hidden sm:inline">ADD TASK</span>
@@ -75,7 +75,7 @@ const TaskFormModal = () => {
             <div className="space-y-4 pt-1">
               {/* Category Selector Block */}
               <div>
-                <p className="text-[10px] font-mono text-[#666] mb-2 tracking-widest">
+                <p className="text-[10px] font-mono text-muted mb-2 tracking-widest">
                   CATEGORY
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -85,8 +85,8 @@ const TaskFormModal = () => {
                       onClick={() => setCat(c)}
                       className={`tag-pill px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all ${
                         c === cat
-                          ? "border-[#C8F135] bg-[#C8F135]/10"
-                          : "border-[#222] bg-[#111] hover:border-[#444]"
+                          ? "border-primary bg-primary/10"
+                          : "border-[var(--hover-bdr)] bg-card hover:border-[var(--hover-bdr)]"
                       }`}
                       style={{ color: getCategoryColor(c) }}
                     >
@@ -98,7 +98,7 @@ const TaskFormModal = () => {
 
               {/* Priority Selector Block */}
               <div>
-                <p className="text-[10px] font-mono text-[#666] mb-2 tracking-widest">
+                <p className="text-[10px] font-mono text-muted mb-2 tracking-widest">
                   PRIORITY
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -108,8 +108,8 @@ const TaskFormModal = () => {
                       onClick={() => setPrio(p)}
                       className={`tag-pill px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all ${
                         p === prio
-                          ? "border-[#C8F135] bg-[#C8F135]/10"
-                          : "border-[#222] bg-[#111] hover:border-[#444]"
+                          ? "border-primary bg-primary/10"
+                          : "border-[var(--hover-bdr)] bg-card hover:border-[var(--hover-bdr)]"
                       }`}
                       style={{ color: getPriorityColor(p) }}
                     >
