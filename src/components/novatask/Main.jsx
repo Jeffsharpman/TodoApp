@@ -5,6 +5,7 @@ import TaskItem from "./TaskItem";
 import Head from "./Head";
 import Footer from "./Footer";
 import Modal from "./Modal";
+import WhatsAppFab from "./WhatsAppFab";
 import { PageContext } from "../lib/PageContext";
 
 const Main = () => {
@@ -25,6 +26,7 @@ const Main = () => {
         <Filter />
 
         <TaskItem />
+        <WhatsAppFab />
       </div>
     </main>
   );
