@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
 import Logo from "../../assets/logo.png";
 import { PageContext } from "../lib/PageContext";
 import { Plus, Menu, User } from "lucide-react";
 import { useTheme } from "../lib/ThemeContext";
+import { slideDown } from "../lib/animations";
 
-// Shared toggle — defined once, used in both layouts
 const ThemeToggle = ({ toggle, dark }) => (
   <button
     onClick={toggle}
@@ -12,7 +13,6 @@ const ThemeToggle = ({ toggle, dark }) => (
     className="w-[30px] h-[30px] bg-secondary border border-line rounded-lg flex items-center justify-center text-muted hover:text-primary hover:border-primary transition-colors"
   >
     {dark ? (
-      // Sun — switch to light
       <svg
         width="13"
         height="13"
@@ -33,7 +33,6 @@ const ThemeToggle = ({ toggle, dark }) => (
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
       </svg>
     ) : (
-      // Moon — switch to dark
       <svg
         width="13"
         height="13"
@@ -54,7 +53,10 @@ const Header = () => {
   const { dark, toggle } = useTheme();
 
   return (
-    <header
+    <motion.header
+      variants={slideDown}
+      initial="hidden"
+      animate="visible"
       aria-label="Main navigation"
       className="bg-canvas border-b border-line sticky top-0 z-50"
     >
@@ -85,15 +87,15 @@ const Header = () => {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             onClick={() => setIsModalOpen(true)}
             className="bg-primary text-black font-mono text-[11px] font-medium px-3 py-1.5 rounded-md tracking-wide flex items-center gap-1 hover:brightness-110 transition-all"
           >
             <Plus size={16} strokeWidth={3} />
             TASK
-          </button>
+          </motion.button>
 
-          {/* Theme Toggle — mobile */}
           <ThemeToggle toggle={toggle} dark={dark} />
 
           <div className="w-[30px] h-[30px] bg-secondary border border-line rounded-lg flex items-center justify-center">
@@ -101,7 +103,6 @@ const Header = () => {
           </div>
 
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open menu"
             className="w-[30px] h-[30px] border border-line rounded-lg flex items-center justify-center hover:bg-secondary transition-colors"
           >
@@ -170,16 +171,16 @@ const Header = () => {
             <button className="border border-line text-muted hover:border-primary hover:text-primary font-mono text-[10px] px-4 py-2 rounded-lg tracking-widest transition-colors">
               GITHUB
             </button>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsModalOpen(true)}
               className="bg-primary text-black hover:brightness-110 font-mono text-[10px] font-medium px-5 py-2 rounded-lg tracking-widest transition-all flex items-center gap-1.5"
             >
               <Plus size={16} strokeWidth={3} />
               NEW TASK
-            </button>
+            </motion.button>
           </div>
 
-          {/* Theme Toggle — desktop */}
           <ThemeToggle toggle={toggle} dark={dark} />
 
           <div className="w-8 h-8 bg-secondary border border-line rounded-xl flex items-center justify-center">
@@ -187,7 +188,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 

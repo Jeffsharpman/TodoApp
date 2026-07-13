@@ -1,18 +1,56 @@
-# React + Vite
+# NovaTask — Smart Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, modern todo application built with React and Vite. Manage daily tasks with categories, priorities, filters, and progress tracking.
 
-Currently, two official plugins are available:
+**Live Demo:** [novatodos.netlify.app](https://novatodos.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Built by
 
-## React Compiler
+NovaTask was developed by **Oyenuga Joshua**, the founder of [Sharpman](https://sharpman.netlify.app) — a web development and digital solutions brand based in Lagos, Nigeria.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Sharpman specializes in custom website development, web applications, e-commerce solutions, admin dashboards, and SEO optimization.
 
-Note: This will impact Vite dev & build performances.
+## Features
 
-## Expanding the ESLint configuration
+- Task creation with categories and priority levels
+- Status and priority filtering with sorting
+- Real-time progress tracking with visual indicators
+- Dark and light theme support
+- Persistent local storage
+- Fully responsive design
+- WhatsApp integration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **React 19** with Vite
+- **Tailwind CSS v4**
+- **Lucide React** icons
+- **Framer Motion** (available)
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Production build
+- `npm run preview` — Preview production build
+- `npm run lint` — Run ESLint
+
+## Author
+
+**Oyenuga Joshua** — Full Stack Web Developer
+
+- Portfolio: [sharpman.netlify.app](https://sharpman.netlify.app)
+- GitHub: [Jeffsharpman](https://github.com/Jeffsharpman)
+- LinkedIn: [oyenuga-joshua](https://www.linkedin.com/in/oyenuga-joshua-058434417)
+- Twitter: [@sharpman_dev](https://x.com/sharpman_dev)
+- Email: buildwithsharpman@gmail.com
+
+## License
+
+Part of the [Sharpman](https://sharpman.netlify.app) portfolio.

@@ -1,14 +1,25 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
 import { PageContext } from "../lib/PageContext";
+import { fadeInUp, staggerContainer } from "../lib/animations";
 
 const Footer = () => {
   const { totalTodos, completedTodos, activeTodos } = useContext(PageContext);
 
   return (
-    <footer aria-label="Site footer">
+    <motion.footer
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+      aria-label="Site footer"
+    >
       <div className="bg-canvas border border-line rounded-xl p-7">
         {/* Top row */}
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+        <motion.div
+          variants={fadeInUp}
+          className="flex items-center justify-between flex-wrap gap-3 mb-5"
+        >
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-primary rounded-full" />
             <span className="font-mono text-[9px] text-muted tracking-[3px]">
@@ -18,13 +29,13 @@ const Footer = () => {
           <span className="font-mono text-[9px] text-muted tracking-wide">
             SESSION #001
           </span>
-        </div>
+        </motion.div>
 
         {/* Divider */}
         <div className="w-full h-px bg-line mb-5" />
 
         {/* Stats */}
-        <div className="flex">
+        <motion.div variants={fadeInUp} className="flex">
           {[
             {
               label: "TOTAL",
@@ -69,12 +80,29 @@ const Footer = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Bottom row */}
-        <div className="flex items-center justify-between flex-wrap gap-2 mt-5 pt-4 border-t border-line">
+        {/* Divider */}
+        <div className="w-full h-px bg-line mt-5" />
+
+        {/* Attribution row */}
+        <motion.div
+          variants={fadeInUp}
+          className="flex items-center justify-between flex-wrap gap-2 pt-4"
+        >
           <span className="font-mono text-[9px] text-muted tracking-wide">
-            SHARP<span className="text-primary">MAN</span> · DESIGN. CODE. <span className="text-primary">ELEVATE</span>.
+            Designed & Developed by{" "}
+            <a
+              href="https://sharpman.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Oyenuga Joshua
+            </a>{" "}
+            <span className="text-ink">(</span>
+            <span className="text-primary">Sharpman</span>
+            <span className="text-ink">)</span>
           </span>
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -82,9 +110,28 @@ const Footer = () => {
               ALL SYSTEMS GO
             </span>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Bottom brand row */}
+        <motion.div
+          variants={fadeInUp}
+          className="flex items-center justify-between flex-wrap gap-2 mt-3 pt-3 border-t border-line"
+        >
+          <span className="font-mono text-[9px] text-muted tracking-wide">
+            SHARP<span className="text-primary">MAN</span> · DESIGN. CODE.{" "}
+            <span className="text-primary">ELEVATE</span>.
+          </span>
+          <a
+            href="https://sharpman.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[9px] text-muted tracking-wide hover:text-primary transition-colors"
+          >
+            VIEW MORE PROJECTS
+          </a>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

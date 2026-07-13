@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
 import { PageContext } from "../lib/PageContext";
+import { fadeInUp } from "../lib/animations";
 
 const filterOptions = ["All", "Active", "Done"];
-{
-  /* <button className="clear-btn">Clear Done</button> */
-}
 
 const Filter = () => {
   const {
@@ -19,16 +18,22 @@ const Filter = () => {
 
   return (
     <div>
-      {/* 03 — Filters */}
-      <section id="filters">
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-40px" }}
+        id="filters"
+      >
         <div className="showcase-card">
           <div className="p-8">
             <div className="flex flex-wrap gap-6 justify-between items-center">
               {/* Status Tabs */}
               <div className="flex bg-card p-1.5 rounded-2xl border border-line">
                 {filterOptions.map((option) => (
-                  <button
+                  <motion.button
                     key={option}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setFilter(option)}
                     className={`f-tab px-6 py-2.5 text-sm font-mono tracking-widest rounded-xl transition-all ${
                       option === filter
@@ -37,7 +42,7 @@ const Filter = () => {
                     }`}
                   >
                     {option}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
 
@@ -82,7 +87,7 @@ const Filter = () => {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

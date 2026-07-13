@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "../novatask/Header";
 import Main from "../novatask/Main";
-// import { input } from "framer-motion/client";
 import EmptyState from "../novatask/EmptyState";
 import Footer from "../novatask/Footer";
+import AboutDeveloper from "../seo/AboutDeveloper";
 import { PageContext } from "../lib/PageContext";
 import TaskFormModal from "../novatask/TaskFormModal";
 import Modal from "../novatask/Modal";
@@ -181,7 +181,12 @@ const Home = () => {
       <div>
         <Header />
         <Main />
-        <Footer />
+        <div className="max-w-6xl mx-auto px-4 mt-6 mb-6">
+          <AboutDeveloper />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 mb-6">
+          <Footer />
+        </div>
       </div>
     </PageContext>
   );
