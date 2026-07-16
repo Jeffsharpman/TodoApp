@@ -9,6 +9,8 @@ import { staggerContainer, taskItemVariant } from "../lib/animations";
 import Card from "../UI/Card";
 import TagBadge from "../UI/TagBadge";
 import Button from "../UI/Button";
+import Checkbox from "../UI/Checkbox";
+import PriorityDot from "../UI/PriorityDot";
 
 const formatRelativeTime = (createdAt) => {
   if (!createdAt) return "—";
@@ -172,30 +174,14 @@ const TaskItem = () => {
                   >
                     <div className="flex items-start gap-14 p-[18px] bg-surface border border-line rounded-[14px] transition-all hover:bg-hover-row hover:border-hover-bdr group">
                       {/* Checkbox */}
-                      <div
-                        className={`mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
-                          todo.done
-                            ? "text-black"
-                            : "border-line group-hover:border-inksoft"
-                        }`}
+                      <Checkbox
+                        checked={todo.done}
+                        color={getPriorityColor(todo.prio)}
                         onClick={() => toggleTodo(todo.id)}
-                        style={
-                          todo.done
-                            ? {
-                                backgroundColor: getPriorityColor(todo.prio),
-                                borderColor: getPriorityColor(todo.prio),
-                              }
-                            : {}
-                        }
-                      >
-                        {todo.done && "\u2713"}
-                      </div>
+                      />
 
                       {/* Priority Dot */}
-                      <div
-                        className="mt-2.5 w-3 h-3 rounded-full flex-shrink-0"
-                        style={{ background: getPriorityColor(todo.prio) }}
-                      />
+                      <PriorityDot color={getPriorityColor(todo.prio)} />
 
                       {/* Main Content */}
                       <div className="flex-1 min-w-0">

@@ -2,6 +2,7 @@ import Card from "./Card";
 import Button from "./Button";
 import Eyebrow from "./Eyebrow";
 import Input from "./Input";
+import Textarea from "./Textarea";
 
 function Contact() {
   const handleSubmit = (e) => {
@@ -23,11 +24,11 @@ function Contact() {
         <div className="mb-12 text-center">
           <Eyebrow>GET IN TOUCH</Eyebrow>
           <h2 className="mt-3 font-['Bebas_Neue'] text-4xl tracking-wider text-ink md:text-5xl">
-            LET&apos;S <span className="text-primary">CONNECT</span>
+            NEED <span className="text-primary">HELP</span>?
           </h2>
           <p className="mx-auto mt-4 max-w-md text-muted">
-            Have feedback, feature requests, or just want to say hello? We&apos;d
-            love to hear from you.
+            Got questions, feature ideas, or found a bug? We&apos;d love your
+            feedback to make NovaTask better.
           </p>
         </div>
 
@@ -45,11 +46,10 @@ function Contact() {
               />
 
               <div className="md:col-span-2">
-                <Eyebrow as="label">Message</Eyebrow>
-                <textarea
-                  rows={4}
+                <Textarea
+                  label="Message"
                   placeholder="Tell us what's on your mind..."
-                  className="mt-2 w-full rounded-xl border border-line bg-canvas px-4 py-3 text-ink outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30"
+                  rows={4}
                 />
               </div>
 

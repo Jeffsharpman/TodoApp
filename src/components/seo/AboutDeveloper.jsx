@@ -57,21 +57,18 @@ const AboutDeveloper = () => {
             </div>
 
             <p className="text-inksoft text-sm leading-relaxed mb-4">
-              NovaTask was built by{" "}
-              <span className="text-ink font-medium">Oyenuga Joshua</span>, a
-              full stack web developer and the founder of{" "}
+              NovaTask is a modern task management app built by{" "}
+              <span className="text-ink font-medium">Oyenuga Joshua</span>,
+              founder of{" "}
               <span className="text-primary font-medium">Sharpman</span> — a web
-              development and digital solutions brand based in Lagos, Nigeria.
-              Sharpman specializes in building custom websites, web
-              applications, e-commerce solutions, and admin dashboards for
-              businesses and individuals.
+              development brand crafting custom websites, web apps, and digital
+              experiences from Lagos, Nigeria.
             </p>
 
             <p className="text-inksoft text-sm leading-relaxed mb-5">
-              This project is one of several applications developed by Oyenuga
-              Joshua under the Sharpman brand. Each project is crafted with
-              attention to performance, accessibility, and modern design
-              standards.
+              Every feature is designed for clarity and speed — from smart
+              categorization to priority-based sorting. Built with React,
+              Tailwind CSS, and Framer Motion.
             </p>
 
             {/* Services */}
@@ -102,7 +99,7 @@ const AboutDeveloper = () => {
                 className="!text-[10px] !font-mono !px-5 !py-2.5 !tracking-widest !rounded-lg"
               >
                 <Globe size={14} />
-                EXPLORE THE SHARPMAN PORTFOLIO
+                SHARPMAN PORTFOLIO
               </Button>
               <Button
                 variant="outline"
@@ -113,7 +110,7 @@ const AboutDeveloper = () => {
                 className="!text-[10px] !font-mono !px-5 !py-2.5 !tracking-widest !rounded-lg"
               >
                 <ExternalLink size={14} />
-                LEARN MORE ABOUT OYENUGA JOSHUA
+                MEET THE DEVELOPER
               </Button>
             </div>
           </motion.div>
@@ -136,8 +133,8 @@ const AboutDeveloper = () => {
               <Divider className="mb-4" />
 
               <p className="font-mono text-[10px] text-muted leading-relaxed mb-4">
-                Web development and digital solutions brand delivering custom
-                websites, web apps, and digital experiences.
+                Web development brand delivering custom websites, web apps, and
+                digital experiences.
               </p>
 
               <div className="space-y-2 mb-4">

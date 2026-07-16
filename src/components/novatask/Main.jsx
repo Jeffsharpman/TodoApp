@@ -2,7 +2,7 @@ import { useContext } from "react";
 import TaskFormModal from "./TaskFormModal";
 import Filter from "./Filter";
 import TaskItem from "./TaskItem";
-import Header from "./header";
+import Header from "./Header";
 import Modal from "./Modal";
 import WhatsAppFAB from "../UI/WhatsAppFAB";
 import { PageContext } from "../lib/PageContext";

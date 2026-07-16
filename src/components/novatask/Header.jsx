@@ -50,9 +50,8 @@ const Header = () => {
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
-                Oyenuga Joshua
-              </a>{" "}
-              · Part of the Sharpman portfolio
+                Sharpman
+              </a>
             </p>
           </div>
 

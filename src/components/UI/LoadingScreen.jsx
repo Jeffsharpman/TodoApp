@@ -42,7 +42,7 @@ function LoadingScreen({ done }) {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-6 text-center text-[10px] font-mono tracking-[0.45em] uppercase text-muted"
           >
-            NOVATASK · DESIGN. CODE. <span className="text-primary">ELEVATE</span>.
+            NOVATASK
           </motion.p>
         </motion.div>
       )}

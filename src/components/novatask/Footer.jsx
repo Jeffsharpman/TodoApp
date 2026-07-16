@@ -93,11 +93,8 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="text-primary hover:underline"
             >
-              Oyenuga Joshua
-            </a>{" "}
-            <span className="text-ink">(</span>
-            <span className="text-primary">Sharpman</span>
-            <span className="text-ink">)</span>
+              Sharpman
+            </a>
           </span>
           <StatusDot label="ALL SYSTEMS GO" />
         </motion.div>
@@ -107,8 +104,7 @@ const Footer = () => {
           className="mt-3 flex items-center justify-between gap-2 pt-3 border-t border-line flex-wrap"
         >
           <span className="font-mono text-[9px] text-muted tracking-wide">
-            SHARP<span className="text-primary">MAN</span> · DESIGN. CODE.{" "}
-            <span className="text-primary">ELEVATE</span>.
+            NOVATASK · <span className="text-primary">SHARPMAN</span>
           </span>
           <a
             href="https://sharpman.netlify.app"
@@ -116,7 +112,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="font-mono text-[9px] text-muted tracking-wide hover:text-primary transition-colors"
           >
-            VIEW MORE PROJECTS
+            VIEW SHARPMAN PORTFOLIO
           </a>
         </motion.div>
       </Card>

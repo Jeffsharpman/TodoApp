@@ -8,30 +8,7 @@ import Particles from "../UI/Particles";
 import Marquee from "../UI/Marquee";
 import Contact from "../UI/Contact";
 import { PageContext } from "../lib/PageContext";
-
-export function useLocalStorage(key, initialValue) {
-  // Initialize state function reads from localStorage on mount
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
-    }
-  });
-
-  // Watch state alterations to flash updates straight to storage disk
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
-    } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
-    }
-  }, [key, storedValue]);
-
-  return [storedValue, setStoredValue];
-}
+import { useLocalStorage } from "../lib/useLocalStorage";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -44,56 +21,6 @@ const Home = () => {
   const [sortFilter, setSortFilter] = useState("Newest first");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
-  // const [todos, setTodos] = useState([
-  //   {
-  //     id: 1,
-  //     text: "Finish SwiftGo customer UI screens",
-  //     cat: "Work",
-  //     prio: "high",
-  //     done: false,
-  //     createdAt: new Date(Date.now() - 86400000 * 2), // 2 days ago
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "Practice React hooks — useEffect & useContext",
-  //     cat: "Learning",
-  //     prio: "high",
-  //     done: false,
-  //     createdAt: new Date(Date.now() - 86400000 * 1), // 1 day ago
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "30 min morning run",
-  //     cat: "Health",
-  //     prio: "medium",
-  //     done: true,
-  //     createdAt: new Date(Date.now() - 86400000 * 0.5), // 12 hours ago
-  //   },
-  //   {
-  //     id: 4,
-  //     text: "Review Node.js + Express tutorial",
-  //     cat: "Learning",
-  //     prio: "medium",
-  //     done: false,
-  //     createdAt: new Date(Date.now() - 3600000 * 6), // 6 hours ago
-  //   },
-  //   {
-  //     id: 5,
-  //     text: "Buy groceries — rice, palm oil, tomatoes",
-  //     cat: "Shopping",
-  //     prio: "low",
-  //     done: false,
-  //     createdAt: new Date(Date.now() - 3600000 * 2), // 2 hours ago
-  //   },
-  //   {
-  //     id: 6,
-  //     text: "Update portfolio with new projects",
-  //     cat: "Personal",
-  //     prio: "medium",
-  //     done: false,
-  //     createdAt: new Date(), // now
-  //   },
-  // ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todos, setTodos] = useLocalStorage("todos_main", []);
 
