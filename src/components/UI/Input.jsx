@@ -1,4 +1,6 @@
-const Input = ({ label, type = "text", placeholder, required, className = "", ...props }) => (
+import { forwardRef } from "react";
+
+const Input = forwardRef(({ label, type = "text", placeholder, required, className = "", ...props }, ref) => (
   <div className={className}>
     {label && (
       <label className="mb-1 block text-[10px] font-mono tracking-widest text-muted">
@@ -6,6 +8,7 @@ const Input = ({ label, type = "text", placeholder, required, className = "", ..
       </label>
     )}
     <input
+      ref={ref}
       type={type}
       placeholder={placeholder}
       required={required}
@@ -13,6 +16,6 @@ const Input = ({ label, type = "text", placeholder, required, className = "", ..
       {...props}
     />
   </div>
-);
+));
 
 export default Input;

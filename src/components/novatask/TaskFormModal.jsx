@@ -3,6 +3,7 @@ import { PageContext } from "../lib/PageContext";
 import { Plus } from "lucide-react";
 import Button from "../UI/Button";
 import BadgeGroup from "../UI/BadgeGroup";
+import Input from "../UI/Input";
 
 const TaskFormModal = () => {
   const {
@@ -51,13 +52,12 @@ const TaskFormModal = () => {
         <div className="w-full bg-transparent">
           <div className="space-y-5">
             <div className="flex gap-2">
-              <input
+              <Input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                type="text"
                 placeholder="What needs to get done?"
-                className="task-input flex-1"
+                className="flex-1 [&_input]:!py-4"
               />
               <Button
                 variant="primary"
