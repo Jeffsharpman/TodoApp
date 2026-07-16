@@ -6,6 +6,7 @@ import { slideDown } from "../lib/animations";
 import Button from "../UI/Button";
 import ThemeToggle from "../UI/ThemeToggle";
 import Logo from "../UI/Logo";
+import StatusDot from "../UI/StatusDot";
 
 const Nav = () => {
   const { setIsModalOpen } = useContext(PageContext);
@@ -47,12 +48,7 @@ const Nav = () => {
 
       {/* Mobile Bottom Bar */}
       <div className="flex items-center justify-between px-4 py-2 border-t border-line md:hidden">
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-          <span className="font-mono text-[9px] text-muted tracking-[3px]">
-            NOVATASK
-          </span>
-        </div>
+        <StatusDot label="NOVATASK" />
         <div className="flex gap-1.5">
           <Button variant="outline" size="sm" className="!text-[9px] !font-mono !px-2 !py-1 !tracking-wide !rounded-md">
             DOCS
@@ -70,12 +66,7 @@ const Nav = () => {
 
           <div className="w-px h-7 bg-line" />
 
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-            <span className="font-mono text-[10px] text-muted tracking-[3px]">
-              NOVATASK
-            </span>
-          </div>
+          <StatusDot label="NOVATASK" />
         </div>
 
         <div className="flex items-center gap-4">

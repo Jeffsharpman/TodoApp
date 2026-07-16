@@ -1,6 +1,7 @@
 import Card from "./Card";
 import Button from "./Button";
 import Eyebrow from "./Eyebrow";
+import Input from "./Input";
 
 function Contact() {
   const handleSubmit = (e) => {
@@ -34,29 +35,14 @@ function Contact() {
           {/* Contact Form */}
           <Card variant="surface" className="p-8 md:p-10">
             <form onSubmit={handleSubmit} className="grid gap-5 md:grid-cols-2">
-              {[
-                ["Full Name", "text", "name"],
-                ["Email", "email", "email"],
-              ].map(([label, type, name]) => (
-                <div key={name}>
-                  <Eyebrow as="label">{label}</Eyebrow>
-                  <input
-                    type={type}
-                    name={name}
-                    required
-                    className="mt-2 w-full rounded-xl border border-line bg-canvas px-4 py-3 text-ink outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30"
-                  />
-                </div>
-              ))}
+              <Input label="Full Name" type="text" name="name" required />
+              <Input label="Email" type="email" name="email" required />
 
-              <div className="md:col-span-2">
-                <Eyebrow as="label">Subject</Eyebrow>
-                <input
-                  type="text"
-                  placeholder="Feature request, bug report, feedback..."
-                  className="mt-2 w-full rounded-xl border border-line bg-canvas px-4 py-3 text-ink outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30"
-                />
-              </div>
+              <Input
+                label="Subject"
+                placeholder="Feature request, bug report, feedback..."
+                className="md:col-span-2"
+              />
 
               <div className="md:col-span-2">
                 <Eyebrow as="label">Message</Eyebrow>

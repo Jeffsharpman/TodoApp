@@ -4,6 +4,8 @@ import { fadeInUp, staggerContainer } from "../lib/animations";
 import Card from "../UI/Card";
 import Badge from "../UI/Badge";
 import Button from "../UI/Button";
+import StatusDot from "../UI/StatusDot";
+import Divider from "../UI/Divider";
 
 const SERVICES = [
   "Custom Website Development",
@@ -27,15 +29,12 @@ const AboutDeveloper = () => {
         {/* Section label */}
         <motion.div
           variants={fadeInUp}
-          className="flex items-center gap-2 mb-5"
+          className="mb-5 flex items-center gap-2"
         >
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-          <span className="font-mono text-[9px] text-muted tracking-[3px]">
-            ABOUT THE DEVELOPER
-          </span>
+          <StatusDot label="ABOUT THE DEVELOPER" />
         </motion.div>
 
-        <div className="w-full h-px bg-line mb-5" />
+        <Divider className="mb-5" />
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Developer info */}
@@ -134,7 +133,7 @@ const AboutDeveloper = () => {
                 </p>
               </div>
 
-              <div className="w-full h-px bg-line mb-4" />
+              <Divider className="mb-4" />
 
               <p className="font-mono text-[10px] text-muted leading-relaxed mb-4">
                 Web development and digital solutions brand delivering custom
