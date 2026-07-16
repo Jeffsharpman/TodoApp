@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageContext } from "../lib/PageContext";
 import EmptyState from "./EmptyState";
@@ -6,6 +6,9 @@ import { Edit, Trash2 } from "lucide-react";
 import Confirmation from "./Confirmation";
 import Modal from "./Modal";
 import { staggerContainer, taskItemVariant } from "../lib/animations";
+import Card from "../UI/Card";
+import TagBadge from "../UI/TagBadge";
+import Button from "../UI/Button";
 
 const formatRelativeTime = (createdAt) => {
   if (!createdAt) return "—";
@@ -145,7 +148,7 @@ const TaskItem = () => {
   return (
     <div>
       <section id="tasklist">
-        <div className="showcase-card p-8 space-y-3">
+        <Card variant="surface" padding="p-8" className="space-y-3">
           {todos.length === 0 ? (
             <EmptyState state="No Task" />
           ) : filteredTodos.length === 0 ? (
@@ -166,14 +169,14 @@ const TaskItem = () => {
                     animate="visible"
                     exit="exit"
                     layout
-                    className="task-row group"
                   >
-                    {/* Checkbox */}
+                    <div className="flex items-start gap-14 p-[18px] bg-surface border border-line rounded-[14px] transition-all hover:bg-hover-row hover:border-hover-bdr group">
+                      {/* Checkbox */}
                       <div
-                        className={`cb mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
+                        className={`mt-0.5 cursor-pointer transition-all flex items-center justify-center w-6 h-6 rounded-lg border-2 text-lg font-bold flex-shrink-0 ${
                           todo.done
                             ? "text-black"
-                            : "border-[var(--line)] group-hover:border-[var(--inksoft)]"
+                            : "border-line group-hover:border-inksoft"
                         }`}
                         onClick={() => toggleTodo(todo.id)}
                         style={
@@ -185,91 +188,83 @@ const TaskItem = () => {
                             : {}
                         }
                       >
-                        {todo.done && "✓"}
+                        {todo.done && "\u2713"}
                       </div>
 
-                    {/* Priority Dot */}
-                    <div
-                      className="p-dot mt-2.5 w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ background: getPriorityColor(todo.prio) }}
-                    />
+                      {/* Priority Dot */}
+                      <div
+                        className="mt-2.5 w-3 h-3 rounded-full flex-shrink-0"
+                        style={{ background: getPriorityColor(todo.prio) }}
+                      />
 
-                    {/* Main Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          {editId === todo.id ? (
-                            <input
-                              autoFocus
-                              value={editText}
-                              onChange={(e) => setEditText(e.target.value)}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") saveEdit(todo.id);
-                                if (e.key === "Escape") cancelEdit();
-                              }}
-                              onBlur={() => saveEdit(todo.id)}
-                              className="bg-transparent border-b border-primary outline-none w-full text-[15px] py-1 font-medium text-ink"
-                              style={{ fontFamily: "'DM Mono', monospace" }}
-                            />
-                          ) : (
-                            <p
-                              className={`task-text text-[15px] leading-tight pr-4 cursor-pointer ${
-                                todo.done
-                                  ? "line-through text-muted"
-                                  : "text-ink"
-                              }`}
-                              onClick={() => toggleTodo(todo.id)}
+                      {/* Main Content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            {editId === todo.id ? (
+                              <input
+                                autoFocus
+                                value={editText}
+                                onChange={(e) => setEditText(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") saveEdit(todo.id);
+                                  if (e.key === "Escape") cancelEdit();
+                                }}
+                                onBlur={() => saveEdit(todo.id)}
+                                className="bg-transparent border-b border-primary outline-none w-full text-[15px] py-1 font-medium text-ink font-mono"
+                              />
+                            ) : (
+                              <p
+                                className={`font-mono text-[15px] leading-tight pr-4 cursor-pointer ${
+                                  todo.done
+                                    ? "line-through text-muted"
+                                    : "text-ink"
+                                }`}
+                                onClick={() => toggleTodo(todo.id)}
+                              >
+                                {todo.text}
+                              </p>
+                            )}
+                          </div>
+
+                          {/* Actions */}
+                          <div className="flex gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <Button
+                              variant="icon"
+                              size="icon"
+                              onClick={() => editTodo(todo.id)}
+                              className="!rounded-xl"
                             >
-                              {todo.text}
-                            </p>
-                          )}
+                              <Edit size={18} />
+                            </Button>
+                            <Button
+                              variant="icon"
+                              size="icon"
+                              onClick={() => handleDeleteClick(todo)}
+                              className="!rounded-xl !text-rose hover:!text-rose"
+                            >
+                              <Trash2 size={18} />
+                            </Button>
+                          </div>
                         </div>
 
-                        {/* Actions */}
-                        <div className="flex gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-                          <motion.button
-                            whileTap={{ scale: 0.9 }}
-                            className="icon-btn hover:text-primary p-2 hover:bg-[var(--hover-row)] rounded-xl transition-all"
-                            onClick={() => editTodo(todo.id)}
-                          >
-                            <Edit size={18} />
-                          </motion.button>
-                          <motion.button
-                            whileTap={{ scale: 0.9 }}
-                            className="icon-btn text-rose p-2 hover:bg-[var(--hover-row)] rounded-xl transition-all"
-                            onClick={() => handleDeleteClick(todo)}
-                          >
-                            <Trash2 size={18} />
-                          </motion.button>
-                        </div>
-                      </div>
+                        {/* Tags + Date */}
+                        <div className="mt-4 flex items-center justify-between">
+                          <div className="flex gap-2">
+                            <TagBadge
+                              label={todo.cat}
+                              color={getCategoryColor(todo.cat)}
+                            />
+                            <TagBadge
+                              label={todo.prio?.toUpperCase()}
+                              color={getPriorityColor(todo.prio)}
+                            />
+                          </div>
 
-                      {/* Tags + Date */}
-                      <div className="mt-4 flex items-center justify-between">
-                        <div className="flex gap-2">
-                          <span
-                            className="tag-pill text-xs px-3 py-1 rounded-full border"
-                            style={{
-                              color: getCategoryColor(todo.cat),
-                              borderColor: `${getCategoryColor(todo.cat)}30`,
-                            }}
-                          >
-                            {todo.cat}
-                          </span>
-                          <span
-                            className="tag-pill text-xs px-3 py-1 rounded-full border"
-                            style={{
-                              color: getPriorityColor(todo.prio),
-                              borderColor: `${getPriorityColor(todo.prio)}30`,
-                            }}
-                          >
-                            {todo.prio?.toUpperCase()}
+                          <span className="text-xs text-muted font-mono whitespace-nowrap">
+                            {formatRelativeTime(todo.createdAt)}
                           </span>
                         </div>
-
-                        <span className="text-xs text-muted font-mono whitespace-nowrap">
-                          {formatRelativeTime(todo.createdAt)}
-                        </span>
                       </div>
                     </div>
                   </motion.div>
@@ -277,7 +272,7 @@ const TaskItem = () => {
               </AnimatePresence>
             </motion.div>
           )}
-        </div>
+        </Card>
       </section>
 
       <Modal

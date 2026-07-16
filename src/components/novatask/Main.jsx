@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import TaskFormModal from "./TaskFormModal";
 import Filter from "./Filter";
 import TaskItem from "./TaskItem";
-import Head from "./Head";
-import Footer from "./Footer";
+import Header from "./header";
 import Modal from "./Modal";
-import WhatsAppFab from "./WhatsAppFab";
+import WhatsAppFAB from "../UI/WhatsAppFAB";
 import { PageContext } from "../lib/PageContext";
 
 const Main = () => {
@@ -13,7 +12,7 @@ const Main = () => {
   return (
     <main className="min-h-screen bg-canvas text-ink">
       <div className="max-w-6xl mx-auto px-6 py-10 space-y-12">
-        <Head />
+        <Header />
 
         <Modal
           isOpen={isModalOpen}
@@ -26,7 +25,7 @@ const Main = () => {
         <Filter />
 
         <TaskItem />
-        <WhatsAppFab />
+        <WhatsAppFAB />
       </div>
     </main>
   );

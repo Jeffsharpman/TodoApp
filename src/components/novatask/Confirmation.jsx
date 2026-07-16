@@ -1,5 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
+import Button from "../UI/Button";
 
 const Confirmation = ({
   message = "Are you sure you want to proceed?",
@@ -26,25 +26,21 @@ const Confirmation = ({
         transition={{ delay: 0.2, duration: 0.3 }}
         className="flex gap-3 pt-2"
       >
-        <motion.button
-          whileTap={{ scale: 0.97 }}
+        <Button
+          variant="outline"
           onClick={onCancel}
-          className="flex-1 py-3 px-6 rounded-xl border border-line text-muted hover:bg-white/5 transition-colors font-medium"
+          className="flex-1 !py-3 !px-6 !rounded-xl"
         >
           {cancelText}
-        </motion.button>
+        </Button>
 
-        <motion.button
-          whileTap={{ scale: 0.95 }}
+        <Button
+          variant={confirmVariant === "danger" ? "danger" : "primary"}
           onClick={onConfirm}
-          className={`flex-1 py-3 px-6 rounded-xl font-medium transition-all ${
-            confirmVariant === "danger"
-              ? "bg-rose hover:brightness-110 text-white"
-              : "bg-white text-black hover:bg-gray-200"
-          }`}
+          className="flex-1 !py-3 !px-6 !rounded-xl"
         >
           {confirmText}
-        </motion.button>
+        </Button>
       </motion.div>
     </div>
   );

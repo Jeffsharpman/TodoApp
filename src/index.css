@@ -21,6 +21,17 @@
   --color-amberlt:   var(--amberlt);
   --color-violet:    var(--violet);
   --color-violetlt:  var(--violetlt);
+
+  /* UI component tokens */
+  --color-surface:      var(--surface);
+  --color-surface2:     var(--surface2);
+  --color-fg:           var(--ink);
+  --color-border:       var(--line);
+  --color-background:   var(--canvas);
+  --color-foreground:   var(--ink);
+  --color-gold:         var(--primary);
+  --color-gold-foreground: var(--sel-fg);
+  --color-primary-foreground: var(--sel-fg);
 }
 
 /* ══════════════════════════════════════════

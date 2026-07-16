@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Header from "../novatask/Header";
+import { useState, useEffect } from "react";
+import Nav from "../novatask/Nav";
 import Main from "../novatask/Main";
-import EmptyState from "../novatask/EmptyState";
 import Footer from "../novatask/Footer";
 import AboutDeveloper from "../seo/AboutDeveloper";
+import LoadingScreen from "../UI/LoadingScreen";
+import Particles from "../UI/Particles";
+import Marquee from "../UI/Marquee";
+import Contact from "../UI/Contact";
 import { PageContext } from "../lib/PageContext";
-import TaskFormModal from "../novatask/TaskFormModal";
-import Modal from "../novatask/Modal";
 
 export function useLocalStorage(key, initialValue) {
   // Initialize state function reads from localStorage on mount
@@ -33,6 +34,7 @@ export function useLocalStorage(key, initialValue) {
 }
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
   const [cat, setCat] = useState("Work");
   const [prio, setPrio] = useState("High");
@@ -94,6 +96,11 @@ const Home = () => {
   // ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todos, setTodos] = useLocalStorage("todos_main", []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const totalTodos = todos.length;
   const completedTodos = todos.filter((todo) => todo.done).length;
@@ -178,12 +185,16 @@ const Home = () => {
         setTodoToDelete,
       }}
     >
-      <div>
-        <Header />
+      <LoadingScreen done={!loading} />
+      <div className="relative">
+        <Particles />
+        <Nav />
         <Main />
+        <Marquee />
         <div className="max-w-6xl mx-auto px-4 mt-6 mb-6">
           <AboutDeveloper />
         </div>
+        <Contact />
         <div className="max-w-6xl mx-auto px-4 mb-6">
           <Footer />
         </div>

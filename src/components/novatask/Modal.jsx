@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { backdropVariant, scaleIn } from "../lib/animations";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   useEffect(() => {
@@ -35,26 +37,27 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="bg-card border border-line rounded-2xl w-full max-w-md mx-4 overflow-hidden shadow-2xl shadow-black/50"
+            className="w-full max-w-md mx-4"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-line">
-              <h3 className="font-['Bebas_Neue'] text-2xl tracking-wider text-ink">
-                {title}
-              </h3>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={onClose}
-                className="text-muted hover:text-ink text-2xl leading-none transition-colors p-1 rounded-lg hover:bg-white/5"
-              >
-                <X />
-              </motion.button>
-            </div>
+            <Card
+              variant="default"
+              className="overflow-hidden shadow-2xl shadow-black/50"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-line">
+                <h3 className="font-['Bebas_Neue'] text-2xl tracking-wider text-ink">
+                  {title}
+                </h3>
+                <Button variant="icon" size="icon" onClick={onClose}>
+                  <X size={20} />
+                </Button>
+              </div>
 
-            {/* Content */}
-            <div className="p-6 max-h-[calc(100dvh-120px)] overflow-y-auto text-muted">
-              {children}
-            </div>
+              {/* Content */}
+              <div className="p-6 max-h-[calc(100dvh-120px)] overflow-y-auto text-muted">
+                {children}
+              </div>
+            </Card>
           </motion.div>
         </motion.div>
       )}

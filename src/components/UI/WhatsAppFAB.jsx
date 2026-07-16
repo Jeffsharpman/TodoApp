@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-const WhatsAppFab = () => {
+const WhatsAppFAB = () => {
   return (
     <motion.a
       href="https://wa.link/byhqkf"
@@ -13,7 +13,7 @@ const WhatsAppFab = () => {
       transition={{ delay: 1, duration: 0.5, ease: "easeOut" }}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[oklch(0.65_0.18_150)] px-5 py-3.5 text-sm font-semibold text-white shadow-lg sm:bottom-8 sm:right-8"
+      className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-black shadow-lg transition-all hover:brightness-110 sm:bottom-8 sm:right-8"
     >
       <motion.div
         animate={{ y: [0, -3, 0] }}
@@ -26,4 +26,4 @@ const WhatsAppFab = () => {
   );
 };
 
-export default WhatsAppFab;
+export default WhatsAppFAB;
